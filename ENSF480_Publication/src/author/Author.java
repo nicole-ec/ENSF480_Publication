@@ -8,8 +8,10 @@ public class Author {
 	private String password;
 	private String name;
 	
-	public Author() {
-		
+	public Author(String username, String pasword, String name) {
+		this.username = username;
+		this.password = password;
+		this.name = name;
 	}
 	
 	public void submit(Document d) {
