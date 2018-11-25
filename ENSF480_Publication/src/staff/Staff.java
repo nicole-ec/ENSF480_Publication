@@ -1,5 +1,4 @@
 package staff;
-import frontend.*;
 import shared.*;
 
 public abstract class Staff {

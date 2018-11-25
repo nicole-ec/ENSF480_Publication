@@ -1,6 +1,5 @@
 package author;
 import shared.*;
-import frontend.*;
 
 public class Author {
 	

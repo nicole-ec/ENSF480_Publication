@@ -1,5 +1,7 @@
 package buyers;
 
+import shared.Document;
+
 public class Promotion {
 	
 	private double salePrice;

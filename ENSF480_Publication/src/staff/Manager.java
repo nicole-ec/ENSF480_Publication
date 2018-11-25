@@ -7,6 +7,8 @@ public class Manager extends Staff{
 	
 	boolean checkInventoryExists() {
 		
+		return false;
+		
 	}
 	
 }

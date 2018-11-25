@@ -2,6 +2,8 @@ package buyers;
 
 import java.util.ArrayList;
 
+import shared.Document;
+
 public class RegisteredBuyer extends Buyer{
 
 	private String username;

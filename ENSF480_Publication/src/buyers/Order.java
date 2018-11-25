@@ -2,6 +2,8 @@ package buyers;
 
 import java.util.ArrayList;
 
+import shared.Document;
+
 public class Order {
 	
 	private ArrayList<Document> docs;
@@ -16,7 +18,7 @@ public class Order {
 	public double calculateTotal() {
 		
 		for(Document d : docs) {
-			totalPrice += d.price;
+			totalPrice += d.getPrice();
 		}
 		
 		return totalPrice;

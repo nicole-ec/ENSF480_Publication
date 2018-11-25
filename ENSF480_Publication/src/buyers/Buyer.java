@@ -1,7 +1,6 @@
 package buyers;
 import java.util.ArrayList;
 
-import frontend.*;
 import shared.*;
 
 public abstract class Buyer {

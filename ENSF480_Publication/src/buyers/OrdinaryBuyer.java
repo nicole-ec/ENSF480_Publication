@@ -1,5 +1,7 @@
 package buyers;
 
+import shared.Document;
+
 public class OrdinaryBuyer extends Buyer{
 
 	public OrdinaryBuyer(String email, int creditCard) {

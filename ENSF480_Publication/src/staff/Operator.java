@@ -1,5 +1,7 @@
 package staff;
 
+import shared.Document;
+
 public class Operator extends Staff{
 	public Operator(String name, String username, String password) {
 		super(name, username, password);
