@@ -1,0 +1,8 @@
+abc123;def456;R
+username;password;O
+qwerty;uiop;O
+hello;bye;R
+mickey;disney;R
+chicky;chickenstrips;O
+frosty;snowman;O
+santa;claus;R
