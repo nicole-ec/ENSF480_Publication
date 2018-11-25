@@ -2,8 +2,9 @@ package buyers;
 
 public class OrdinaryBuyer extends Buyer{
 
-	public OrdinaryBuyer() {
-		
+	public OrdinaryBuyer(String email, int creditCard) {
+		super(email, creditCard);
+		isSubscribed = false;
 	}
 	
 	public void subscribe() {

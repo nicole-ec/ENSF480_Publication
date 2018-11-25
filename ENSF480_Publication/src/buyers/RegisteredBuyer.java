@@ -8,7 +8,14 @@ public class RegisteredBuyer extends Buyer{
 	private String password;
 	private ArrayList<Promotion> promo;
 	
-	public RegisteredBuyer() {
+	public RegisteredBuyer(String email, int creditCard, String username, String password) {
+		super(email, creditCard);
+		isSubscribed = true;
+		this.username = username;
+		this.password = password;
+	}
+	
+	public void unsubscribe() {
 		
 	}
 	
