@@ -12,7 +12,15 @@ public class Order {
 	private int creditCard;
 	
 	public Order() {
-		
+		docs = new ArrayList<Document>();
+	}
+	
+	public void addDoc(Document d) {
+		docs.add(d);
+	}
+	
+	public ArrayList<Document> getDoc(){
+		return docs;
 	}
 	
 	public double calculateTotal() {

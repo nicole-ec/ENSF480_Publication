@@ -18,14 +18,26 @@ public class OrdinaryBuyer extends Buyer{
 	}
 	
 	@Override
-	public Document searchCatalog() {
+	public Document searchCatalog(String title) {
 		// TODO Auto-generated method stub
+		for(int i=0; i<inventory.getList().size(); i++) {
+			if(inventory.getItem(i).getTitle().equalsIgnoreCase(title)) {
+				return inventory.getItem(i);
+			}
+		}
+		System.out.println("Could not find: "+title);
 		return null;
 	}
 
 	@Override
-	public Order makeOrder() {
+	public Order makeOrder(Document d) {
 		// TODO Auto-generated method stub
+		double totalPrice = order.calculateTotal();
+		
+		System.out.println("===============================RECEIPT===============================");
+		
+		
+		
 		return null;
 	}
 

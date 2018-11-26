@@ -19,6 +19,10 @@ public class Document {
 	public double getIsbn() {
 		return price;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
 
 	
 
