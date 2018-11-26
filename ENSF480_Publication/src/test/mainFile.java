@@ -85,7 +85,7 @@ public class mainFile {
 
 		while (true) {
 			System.out.println("What would you like to do? Please choose one of the following:\n1.Search a book\n"
-					+ "2.Place an order\n" + "3.Unsubscribe\n" + "4.Quit\n");
+								+ "2.Unsubscribe\n" + "3.Purchase\n"+ "4.Quit");
 			choice = scan.nextLine();
 
 			if (choice.length() > 1) {
@@ -98,35 +98,63 @@ public class mainFile {
 				System.out.println("Please enter name of book:");
 				title = scan.nextLine();
 				d = buyer.searchCatalog(title);
+				
+				
 				if (d == null) {
 					System.out.println("Could not find that title.");
-					continue;
+					
 				} else {
-					System.out.println("Found " + title + "!");
-				}
-			} // choice 1 statement
-
-			else if (Integer.parseInt(choice) == 2) {
-				if (d == null) {
-					System.out.println("Please choose a document first!");
-					continue;
-				} else {
-					System.out.println("Would you like to buy " + title + "? (yes/no)");
+					System.out.print("Found " + d.getTitle() + "! Price: ");
+					System.out.printf("%.2f%n\n",d.getPrice());
+					
+					System.out.println("Would you like to add " + title + " to your shopping cart? (yes/no)");
 					response = scan.nextLine();
 					if (response.equals("yes")) {
 						buyer.getOrder().addDoc(d);
 						d = null;
-						continue;
+					}
+					else if(response.equals("no")) {
+						System.out.println("Adding document canceled.");
+						d = null;
+					}
+					else {
+						System.out.println("Invalid input!");
 					}
 				}
-			} // choice 2 if statement
+			} // choice 1 statement
 
-			else if (Integer.parseInt(choice) == 3) {
+			else if (Integer.parseInt(choice) == 2) {
 				scan = new Scanner(System.in);
 				((RegisteredBuyer) buyer).unsubscribe();
 				System.out.println("You have unsubscribed!");
 				login();
 			} // choice 3 statement
+			
+			else if (Integer.parseInt(choice) == 3) {
+				if(!buyer.showList()) {
+					
+					System.out.println("You have no orders!");
+					continue;
+				}
+				
+				System.out.println("This is your current order. Are you sure you want to purchase?"
+						+ " Choosing no will reset your order. :^) (yes/no)");
+
+				response = scan.nextLine();
+
+				if (response.equalsIgnoreCase("yes")) {
+					System.out.println("Using saved credit card information...");
+					buyer.makeOrder();
+					buyer.resetOrder();
+					System.out.println("Purchase successful!");
+				} else if (response.equalsIgnoreCase("no")) {
+					buyer.resetOrder();
+					continue;
+				} else {
+					System.out.println("Invalid input!");
+					continue;
+				}
+			}
 
 			else if (Integer.parseInt(choice) == 4) {
 				System.out.println("Have a good day!");
@@ -139,7 +167,7 @@ public class mainFile {
 		while (true) {
 			System.out.println(
 					"What would you like to do? Please choose one of the following (type number):\n1.Search a book\n"
-							+ "2.Place an order\n" + "3.Subscribe\n" + "4.Purchase\n" + "5.Quit\n");
+							+ "2.Subscribe\n" + "3.Purchase\n" + "4.Quit");
 
 			choice = scan.nextLine();
 			if (choice.length() > 1) {
@@ -148,34 +176,39 @@ public class mainFile {
 				System.out.println("Invalid input. Please try again.");
 			}
 
+			
 			else if (Integer.parseInt(choice) == 1) {
 				System.out.println("Please enter name of book:");
 				title = scan.nextLine();
 				d = buyer.searchCatalog(title);
+				
+				
 				if (d == null) {
 					System.out.println("Could not find that title.");
-					continue;
+					
 				} else {
-					System.out.println("Found " + title + "!");
-				}
-			} // choice 1 statement
-
-			else if (Integer.parseInt(choice) == 2) {
-				if (d == null) {
-					System.out.println("Please choose a document first!");
-					continue;
-				} else {
-					System.out.println("Would you like to buy " + title + "? (yes/no)");
+					System.out.print("Found " + d.getTitle() + "! Price: ");
+					System.out.printf("%.2f%n\n",d.getPrice());
+					
+					System.out.println("Would you like to add " + title + " to your shopping cart? (yes/no)");
 					response = scan.nextLine();
 					if (response.equals("yes")) {
 						buyer.getOrder().addDoc(d);
 						d = null;
-						continue;
+					}
+					else if(response.equals("no")) {
+						System.out.println("Adding document canceled.");
+						d = null;
+					}
+					else {
+						System.out.println("Invalid input!");
 					}
 				}
-			} // choice 2 if statement
+				
+				
+			} // choice 1 statement
 
-			else if (Integer.parseInt(choice) == 3) {
+			else if (Integer.parseInt(choice) == 2) {
 				scan = new Scanner(System.in);
 				System.out.println("Please enter a username:");
 				String newname = scan.nextLine();
@@ -196,8 +229,13 @@ public class mainFile {
 				login();
 			} // choice 3 statement
 
-			else if (Integer.parseInt(choice) == 4) {
-				buyer.showList();
+			else if (Integer.parseInt(choice) == 3) {
+				if(!buyer.showList()) {
+					
+					System.out.println("You have no orders!");
+					continue;
+				}
+				
 				System.out.println("This is your current order. Are you sure you want to purchase?"
 						+ " Choosing no will reset your order. :^) (yes/no)");
 
@@ -217,7 +255,7 @@ public class mainFile {
 				}
 			}
 
-			else if (Integer.parseInt(choice) == 5) {
+			else if (Integer.parseInt(choice) == 4) {
 				System.out.println("Have a good day!");
 				login();
 			}

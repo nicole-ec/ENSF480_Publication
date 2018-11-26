@@ -34,31 +34,34 @@ public abstract class Buyer {
 
 		for (int i = 0; i < order.getDoc().size(); i++) {
 
-			System.out.println(order.getDoc().get(i).getTitle() + "\t\t\t" + order.getDoc().get(i).getPrice());
+			System.out.print(order.getDoc().get(i).getTitle() + "\t\t\t" );
+			System.out.printf("%.2f%n\n",order.getDoc().get(i).getPrice());
 
 			totalPrice += order.getDoc().get(i).getPrice();
 
 		}
 		shipping = totalPrice * 0.10;
 		totalPrice += shipping;
-		System.out.println("\n\nShipping\t\t\t\t"+shipping+"\n\n\n==================================================================\n"
-							+"Total price:\t\t\t" 
-							+ totalPrice + "\nPaid with credit card.");
+		System.out.print("\n\nShipping\t\t\t\t");
+		System.out.printf("%.2f%n\n\n\n======================================================================\n"
+							+"Total price:\t\t\t", shipping);
+		System.out.printf("%.2f%n\nPaid with credit card.\n", totalPrice);
 	}
 
-	public void showList() {
+	public boolean showList() {
 		
 		if(order.getDoc() == null || order.getDoc().isEmpty()) {
-			System.out.println("You have no orders!");
-			return;
+			return false;
 		}
 		
 		System.out.println("Document\t\t\t\tPrice\n" + "___________________________________________________\n\n");
 		
 		for (int i = 0; i < order.getDoc().size(); i++) {
-			System.out.println(order.getDoc().get(i).getTitle() + "\t\t\t" + order.getDoc().get(i).getPrice());
+			System.out.print(order.getDoc().get(i).getTitle() + "\t\t\t");
+			System.out.printf("%.2f%n", order.getDoc().get(i).getPrice());
 			
 		}
+		return true;
 	}
 	
 	public void resetOrder() {
