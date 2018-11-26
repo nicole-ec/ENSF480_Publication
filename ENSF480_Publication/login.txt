@@ -1,8 +1,8 @@
-abc123;def456;R
+abc123;def456;R;abc123@gmail.com;135792468
 username;password;O
 qwerty;uiop;O
-hello;bye;R
-mickey;disney;R
+hello;bye;R;hello@gmail.com;357924681
+mickey;disney;R;mickey@gmail.com;579246813
 chicky;chickenstrips;O
 frosty;snowman;O
-santa;claus;R
+santa;claus;R;santa@gmail.com;792468135
