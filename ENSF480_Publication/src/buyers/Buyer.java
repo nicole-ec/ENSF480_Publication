@@ -1,4 +1,6 @@
 package buyers;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import shared.*;
@@ -18,7 +20,7 @@ public abstract class Buyer {
 		return order;
 	}
 	
-	public abstract Document searchCatalog(String title);
+	public abstract Document searchCatalog(String title) throws IOException;
 	
 	//maybe this function should be defined for all of them,
 	//and just let each buyer have a different way to search

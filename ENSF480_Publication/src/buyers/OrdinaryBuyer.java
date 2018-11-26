@@ -2,6 +2,7 @@ package buyers;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -42,13 +43,20 @@ public class OrdinaryBuyer extends Buyer{
 	}
 	
 	@Override
-	public Document searchCatalog(String title) {
+	public Document searchCatalog(String title) throws IOException{
 		// TODO Auto-generated method stub
-		for(int i=0; i<inventory.getList().size(); i++) {
-			if(inventory.getItem(i).getTitle().equalsIgnoreCase(title)) {
-				return inventory.getItem(i);
+		
+		BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
+		String line = reader.readLine();
+		while (line != null) {
+			String[] parts = line.split(";");
+			if (title.equalsIgnoreCase(parts[1])) {
+				Document doc = new Document(Integer.parseInt(parts[0]), parts[1], parts[2]);
+				return doc;
 			}
+			line = reader.readLine();
 		}
+		reader.close();
 		return null;
 	}
 

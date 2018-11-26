@@ -61,7 +61,7 @@ public class RegisteredBuyer extends Buyer{
 	}
 
 	@Override
-	public Document searchCatalog(String title) {
+	public Document searchCatalog(String title) throws IOException{
 		// TODO Auto-generated method stub
 		return null;
 	}
