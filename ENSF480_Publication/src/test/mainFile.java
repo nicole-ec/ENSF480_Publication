@@ -191,24 +191,29 @@ public class mainFile {
 					continue;
 				}
 
-				buyer = new RegisteredBuyer(newname, newpass, newemail, newCredit, promos);
+				buyer = new RegisteredBuyer(newname, newpass, newemail, newCredit, null);
 				System.out.println("You have subscribed!");
 				login();
 			} // choice 3 statement
 
 			else if (Integer.parseInt(choice) == 4) {
 				buyer.showList();
-				System.out.println("This is your current order. Are you sure you want to purchase? (yes/no)");
+				System.out.println("This is your current order. Are you sure you want to purchase?"
+						+ " Choosing no will reset your order. :^) (yes/no)");
 
 				response = scan.nextLine();
 
 				if (response.equalsIgnoreCase("yes")) {
+					System.out.println("Using saved credit card information...");
 					buyer.makeOrder();
+					buyer.resetOrder();
+					System.out.println("Purchase successful!");
 				} else if (response.equalsIgnoreCase("no")) {
-					System.out.println("Clearing your order!");
+					buyer.resetOrder();
 					continue;
 				} else {
 					System.out.println("Invalid input!");
+					continue;
 				}
 			}
 
@@ -255,35 +260,36 @@ public class mainFile {
 	}
 
 	public static void startup() {
-		
+
 		inventory = new Inventory();
 		promos = new ArrayList<Promotion>();
-		
+
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
 			String line = reader.readLine();
-			
+
 			while (line != null) {
 				String[] parts = line.split(";");
-				Document doc = new Document(Integer.parseInt(parts[0]), parts[1], parts[2], Double.parseDouble(parts[3]));
+				Document doc = new Document(Integer.parseInt(parts[0]), parts[1], parts[2],
+						Double.parseDouble(parts[3]));
 				inventory.add(doc);
 				line = reader.readLine();
 			}
-			
-			for(int i=0; i<3; i++) {
+
+			for (int i = 0; i < 3; i++) {
 				Random rand = new Random();
 				ArrayList<Document> temp = inventory.getList();
-				int randomIndex = rand.nextInt(temp.size()); 
-				Promotion p = new Promotion(temp.get(randomIndex), (temp.get(randomIndex).getPrice())*0.75);
+				int randomIndex = rand.nextInt(temp.size());
+				Promotion p = new Promotion(temp.get(randomIndex), (temp.get(randomIndex).getPrice()) * 0.75);
 				temp.remove(randomIndex);
 				promos.add(p);
 			}
-			
+
 			reader.close();
-		} catch(IOException e) {
-			
+		} catch (IOException e) {
+
 		}
-		
+
 	}
 
 	public static void main(String args[]) throws IOException {
