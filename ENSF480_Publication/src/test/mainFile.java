@@ -60,10 +60,6 @@ public class mainFile {
 			} // choice 1 statement
 
 			else if (Integer.parseInt(choice) == 2) {
-				if (d == null) {
-					System.out.println("Please choose a document first!");
-					continue;
-				} else {
 					System.out.println("Please enter isbn number of the document you would like to remove:");
 					isbn = Integer.parseInt(scan.nextLine());
 
@@ -74,10 +70,13 @@ public class mainFile {
 						if (Integer.toString(isbn).equals(parts[0])) {
 							((Operator) staff).removeDoc(isbn);
 							d = null;
+							break;
 						}
-						continue;
+						line = reader.readLine();
 					}
-				}
+					reader.close();
+					System.out.println("The isbn number you entered does not exist.");
+				
 			} // choice 2 if statement
 
 			else if (Integer.parseInt(choice) == 3) {
