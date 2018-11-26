@@ -99,7 +99,9 @@ public class mainFile {
 				while (line != null) {
 					String[] parts = line.split(";");
 					if (Integer.toString(isbn).equals(parts[0])) {
-
+						boolean titleUpdate = false;
+						boolean authorUpdate = false;
+						boolean priceUpdate = false;
 						int option;
 						option = choices();
 						while (option <= 4) {
@@ -107,31 +109,62 @@ public class mainFile {
 								scan = new Scanner(System.in);
 								System.out.println("Please enter what you would like to change the title to:");
 								title = scan.nextLine();
+								titleUpdate = true;
 								System.out.println(title);
 								option = choices();
+							
 
 							} else if (option == 2) {
 								scan = new Scanner(System.in);
 								System.out.println("Please enter the what you would like to update author to:");
 								author = scan.nextLine();
+								authorUpdate = true;
 								option = choices();
+								
 							} else if (option == 3) {
 								scan = new Scanner(System.in);
 								System.out.println("Please enter what you would like to change the price to:");
 								price = Double.parseDouble(scan.nextLine());
+								priceUpdate = true;
 								System.out.println("success");
 								option = choices();
 
 							} else if (option == 4) {
-								d = new Document(isbn, title, author, price);
-								((Operator) staff).updateDoc(d);
+								if(titleUpdate == true && authorUpdate == true && priceUpdate == true)
+								{
+									d = new Document(isbn, title, author, price);
+									((Operator) staff).updateDoc(d);
+								}
+								else if(titleUpdate == true && authorUpdate == true && priceUpdate == false)
+								{
+									price = Double.parseDouble(parts[3]);
+									d = new Document(isbn, title, author, price);
+									((Operator) staff).updateDoc(d);
+								}
+								else if(titleUpdate == true && authorUpdate == false && priceUpdate == true)
+								{
+									author = parts[2];
+									d = new Document(isbn, title, author, price);
+									((Operator) staff).updateDoc(d);
+								}
+								else if(titleUpdate == false && authorUpdate == true && priceUpdate == true)
+								{
+									title = parts[1];
+									d = new Document(isbn, title, author, price);
+									((Operator) staff).updateDoc(d);
+								}
+								else if(titleUpdate == false && authorUpdate == false && priceUpdate == false)
+								{
+									d = new Document(isbn, title, author, price);
+									((Operator) staff).updateDoc(d);
+								}
+								
 								System.out.println("Have a good day!");
 								login();
 								break;
 							}
 						}
-						d = new Document(isbn, title, author, price);
-						((Operator) staff).updateDoc(d);
+						
 						break;
 					}
 
