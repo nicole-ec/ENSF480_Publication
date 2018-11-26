@@ -1,4 +1,6 @@
 package staff;
+import java.util.ArrayList;
+
 import shared.*;
 
 public abstract class Staff {
@@ -11,4 +13,6 @@ public abstract class Staff {
 		this.username = username;
 		this.password = password;
 	}
+
+
 }
