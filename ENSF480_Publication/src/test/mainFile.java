@@ -19,8 +19,53 @@ public class mainFile {
 	private static Staff staff;
 	private static Document d = null;
 	private static int choice;
+	private static int isbn;
 	
-	
+	public static void operator() throws IOException
+	{
+
+		while (true) {
+			System.out.println("What would you like to do? Please choose one of the following:\n1.Add a document\n"
+					+ "2.Remove a document\n" + "3.Update a document\n"+"4.Quit\n");
+			choice = Integer.parseInt(scan.nextLine());				
+			
+			if(choice == 1) {
+				System.out.println("Please enter name of document you would like to add:");
+				title = scan.nextLine();
+//				d = ((Operator)staff).addDoc(title); Fix this based on how to pass document
+				
+			}//choice 1 statement
+			
+			else if(choice == 2) {
+				if(d == null) {
+					System.out.println("Please choose a document first!");
+					continue;
+				}
+				else {
+					System.out.println("Would you like to remove "+isbn+"? (yes/no)");
+					response = scan.nextLine();
+					if(response.equals("yes")) {
+						((Operator)staff).removeDoc(isbn);
+						d = null;
+						continue;
+					}
+				}
+			}//choice 2 if statement
+			
+			if(choice == 3) {
+				/*
+				 * Update doc here
+				 */
+				
+			}//choice 3 statement
+			
+			else if(choice == 4) {
+				System.out.println("Have a good day!");
+				login();
+			}// Choice 4 statement
+		}// End of while    
+		
+	}
 	public static void registeredBuyer() throws IOException
 	{
 		while (true) {
@@ -155,14 +200,21 @@ public class mainFile {
 			while(line!=null)
 			{
 				String[] parts = line.split(";");
-				if(username.equals(parts[0]) && password.equals(parts[1]))
+				if(username.equals(parts[0]) && password.equals(parts[1]) && parts[2].equals("R"))
 				{
-					buyer = new RegisteredBuyer(username,password);
-					registeredBuyer();
+					
+						buyer = new RegisteredBuyer(username,password);
+						registeredBuyer();
+					
+					
+					break;
+				}		
+				else if(username.equals(parts[0]) && password.equals(parts[1]) && parts[2].equals("O"))
+				{
+					staff = new Operator(username,password);
+					operator();
 					break;
 				}
-				
-					
 				line = reader.readLine();
 			}
 			reader.close();

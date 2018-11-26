@@ -11,8 +11,8 @@ public class Operator extends Staff{
 		
 	Inventory inventory;
 
-	public Operator(String name, String username, String password) {
-		super(name, username, password);
+	public Operator(String username, String password) {
+		super(username,password);
 	}
 	
 	public Inventory addDoc(Document doc) {

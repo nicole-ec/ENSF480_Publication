@@ -8,7 +8,7 @@ public abstract class Staff {
 	protected String username;
 	protected String password; 
 	
-	public Staff(String name, String username, String password) {
+	public Staff(String username, String password) {
 		this.name = name;
 		this.username = username;
 		this.password = password;
