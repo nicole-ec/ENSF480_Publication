@@ -17,12 +17,12 @@ import shared.Document;
 public class RegisteredBuyer extends Buyer{
 	
 	private String email;
-	private String creditCard;
 	private String username;
 	private String password;
 	private ArrayList<Promotion> promo;
+	private long creditCard;
 	
-	public RegisteredBuyer(String username, String password, String email, String creditCard, ArrayList<Promotion> promo) {
+	public RegisteredBuyer(String username, String password, String email, long creditCard, ArrayList<Promotion> promo) {
 		super();
 		isSubscribed = true;
 		this.email = email;
@@ -63,10 +63,12 @@ public class RegisteredBuyer extends Buyer{
 	public Document searchCatalog(String title) throws IOException{
 		// TODO Auto-generated method stub
 		
-		for(int i=0; i<promo.size();i++) {
-			if (title.equalsIgnoreCase(promo.get(i).getDoc().getTitle())) {
-				Document doc = new Document(promo.get(i).getDoc().getIsbn(), promo.get(i).getDoc().getTitle(), promo.get(i).getDoc().getAuthor(), promo.get(i).getPrice());
-				return doc;
+		if(promo != null) {
+			for(int i=0; i<promo.size();i++) {
+				if (title.equalsIgnoreCase(promo.get(i).getDoc().getTitle())) {
+					Document doc = new Document(promo.get(i).getDoc().getIsbn(), promo.get(i).getDoc().getTitle(), promo.get(i).getDoc().getAuthor(), promo.get(i).getPrice());
+					return doc;
+				}
 			}
 		}
 		
@@ -84,11 +86,4 @@ public class RegisteredBuyer extends Buyer{
 		
 		return null;
 	}
-
-	@Override
-	public Order makeOrder(Document d) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
