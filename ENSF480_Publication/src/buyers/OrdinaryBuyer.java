@@ -1,5 +1,13 @@
 package buyers;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Scanner;
+
 import shared.Document;
 
 public class OrdinaryBuyer extends Buyer{
@@ -13,8 +21,24 @@ public class OrdinaryBuyer extends Buyer{
 		isSubscribed = false;
 	}
 	
-	public void subscribe() {
+	public boolean subscribe(String username, String password) throws IOException {
 		isSubscribed = true;
+				
+		BufferedReader reader = new BufferedReader(new FileReader("login.txt"));
+		String line = reader.readLine();
+		while (line != null) {
+			String[] parts = line.split(";");
+			if (username.equals(parts[0])) {
+				return false;
+			}
+			line = reader.readLine();
+		}
+		reader.close();
+		
+		Writer output = new BufferedWriter(new FileWriter("login.txt", true));
+		output.append("\n"+username+";"+password+";"+"R");
+		output.close();
+		return true;
 	}
 	
 	@Override
@@ -25,7 +49,6 @@ public class OrdinaryBuyer extends Buyer{
 				return inventory.getItem(i);
 			}
 		}
-		System.out.println("Could not find: "+title);
 		return null;
 	}
 
