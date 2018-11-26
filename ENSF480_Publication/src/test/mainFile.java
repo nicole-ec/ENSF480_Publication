@@ -71,6 +71,72 @@ public class mainFile {
 		}// End of while    
 	}
 	
+	public static void ordinaryBuyer() throws IOException
+	{
+		while (true) {
+			System.out.println("What would you like to do? Please choose one of the following:\n1.Search a book\n"
+					+ "2.Place an order\n" + "3.Subscribe\n"+"4.Quit\n");
+			
+			choice = Integer.parseInt(scan.nextLine());				
+			
+			if(choice == 1) {
+				System.out.println("Please enter name of book:");
+				title = scan.nextLine();
+				d = buyer.searchCatalog(title);
+				if(d == null) {
+					System.out.println("Could not find that title.");
+					continue;
+				}
+				else {
+					System.out.println("Found "+title+"!");
+				}
+			}//choice 1 statement
+			
+			else if(choice == 2) {
+				if(d == null) {
+					System.out.println("Please choose a document first!");
+					continue;
+				}
+				else {
+					System.out.println("Would you like to buy "+title+"? (yes/no)");
+					response = scan.nextLine();
+					if(response.equals("yes")) {
+						buyer.getOrder().addDoc(d);
+						d = null;
+						continue;
+					}
+				}
+			}//choice 2 if statement
+			
+			if(choice == 3) {
+				scan = new Scanner(System.in);
+				System.out.println("Please enter a username:");
+				String newname = scan.nextLine();
+				System.out.println("Please enter a password:");
+				String newpass = scan.nextLine();
+				System.out.println("Please enter your email:");
+				String newemail = scan.nextLine();
+				System.out.println("Please enter your credit card number:");
+				String newCredit = scan.nextLine();
+				
+				
+				if(!((OrdinaryBuyer) buyer).subscribe(newname, newpass)) {
+					System.out.println("Unable to subscribe; username already exists!");
+					continue;
+				}
+				
+				buyer = new RegisteredBuyer(newname, newpass, newemail, newCredit, null);
+				System.out.println("You have subscribed!");
+				
+			}//choice 3 statement
+			
+			else if(choice == 4) {
+				System.out.println("Have a good day!");
+				login();
+			}
+		}//while loop for ordinary buyer
+
+	}
 	
 	public static void login() throws IOException {
 		while (true) {
@@ -79,6 +145,7 @@ public class mainFile {
 			username = scan.nextLine();
 			if (username.equalsIgnoreCase("ordinary")) {
 				buyer = new OrdinaryBuyer();
+				ordinaryBuyer();
 				break;
 			}
 			System.out.println("Please enter password:");
@@ -94,86 +161,18 @@ public class mainFile {
 					registeredBuyer();
 					break;
 				}
+				
+					
 				line = reader.readLine();
 			}
 			reader.close();
-			
-		
-			
-			
-			
+			System.out.println("The username and password you entered does not exist");			
 		}
 	}
 
 	public static void main(String args[]) throws IOException {
 		
 		login();
-
-		if (username.equals("ordinary")) {
-			
-			while (true) {
-				System.out.println("What would you like to do? Please choose one of the following:\n1.Search a book\n"
-						+ "2.Place an order\n" + "3.Subscribe\n"+"4.Quit\n");
-				
-				choice = Integer.parseInt(scan.nextLine());				
-				
-				if(choice == 1) {
-					System.out.println("Please enter name of book:");
-					title = scan.nextLine();
-					d = buyer.searchCatalog(title);
-					if(d == null) {
-						System.out.println("Could not find that title.");
-						continue;
-					}
-					else {
-						System.out.println("Found "+title+"!");
-					}
-				}//choice 1 statement
-				
-				else if(choice == 2) {
-					if(d == null) {
-						System.out.println("Please choose a document first!");
-						continue;
-					}
-					else {
-						System.out.println("Would you like to buy "+title+"? (yes/no)");
-						response = scan.nextLine();
-						if(response.equals("yes")) {
-							buyer.getOrder().addDoc(d);
-							d = null;
-							continue;
-						}
-					}
-				}//choice 2 if statement
-				
-				if(choice == 3) {
-					scan = new Scanner(System.in);
-					System.out.println("Please enter a username:");
-					String newname = scan.nextLine();
-					System.out.println("Please enter a password:");
-					String newpass = scan.nextLine();
-					System.out.println("Please enter your email:");
-					String newemail = scan.nextLine();
-					System.out.println("Please enter your credit card number:");
-					String newCredit = scan.nextLine();
-					
-					
-					if(!((OrdinaryBuyer) buyer).subscribe(newname, newpass)) {
-						System.out.println("Unable to subscribe; username already exists!");
-						continue;
-					}
-					
-					buyer = new RegisteredBuyer(newname, newpass, newemail, newCredit, null);
-					System.out.println("You have subscribed!");
-					
-				}//choice 3 statement
-				
-				else if(choice == 4) {
-					System.out.println("Have a good day!");
-					login();
-				}
-			}//while loop for ordinary buyer
-		}//ordinary buyer if statement
 	}//main function
 
 }
