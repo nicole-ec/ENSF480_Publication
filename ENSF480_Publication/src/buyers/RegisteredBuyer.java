@@ -45,7 +45,6 @@ public class RegisteredBuyer extends Buyer{
 		String currentLine;
 
 		while((currentLine = reader.readLine()) != null) {
-		    // trim newline when comparing with lineToRemove
 		    String trimmedLine = currentLine.trim();
 		    if(trimmedLine.contains(lineToRemove)) continue;
 		    writer.write(currentLine + System.getProperty("line.separator"));
@@ -63,6 +62,26 @@ public class RegisteredBuyer extends Buyer{
 	@Override
 	public Document searchCatalog(String title) throws IOException{
 		// TODO Auto-generated method stub
+		
+		for(int i=0; i<promo.size();i++) {
+			if (title.equalsIgnoreCase(promo.get(i).getDoc().getTitle())) {
+				Document doc = new Document(promo.get(i).getDoc().getIsbn(), promo.get(i).getDoc().getTitle(), promo.get(i).getDoc().getAuthor(), promo.get(i).getPrice());
+				return doc;
+			}
+		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
+		String line = reader.readLine();
+		while (line != null) {
+			String[] parts = line.split(";");
+			if (title.equalsIgnoreCase(parts[1])) {
+				Document doc = new Document(Integer.parseInt(parts[0]), parts[1], parts[2], Double.parseDouble(parts[3]));
+				return doc;
+			}
+			line = reader.readLine();
+		}
+		reader.close();
+		
 		return null;
 	}
 

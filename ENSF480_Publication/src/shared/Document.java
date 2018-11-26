@@ -6,24 +6,28 @@ public class Document {
 	private String authorName;
 	private double price;
 	
-	public Document (int isbn, String title, String authorName) {
+	public Document (long isbn, String title, String authorName, double price) {
 		this.isbn = isbn;
 		this.title = title;
 		this.authorName = authorName;
+		this.price = price;
 	}
 
 	public double getPrice() {
 		return price;
 	}
 	
-	public double getIsbn() {
-		return price;
+	public long getIsbn() {
+		return isbn;
 	}
 	
 	public String getTitle() {
 		return title;
 	}
-
+	
+	public String getAuthor() {
+		return authorName;
+	}
 	
 
 }
