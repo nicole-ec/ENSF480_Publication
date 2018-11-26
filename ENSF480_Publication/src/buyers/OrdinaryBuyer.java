@@ -4,13 +4,17 @@ import shared.Document;
 
 public class OrdinaryBuyer extends Buyer{
 
-	public OrdinaryBuyer(String email, int creditCard) {
-		super(email, creditCard);
+	private boolean isSubscribed;
+	private String email;
+	private String creditCard;
+	
+	public OrdinaryBuyer() {
+		super();
 		isSubscribed = false;
 	}
 	
 	public void subscribe() {
-		
+		isSubscribed = true;
 	}
 	
 	@Override

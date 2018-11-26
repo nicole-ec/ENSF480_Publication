@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import shared.*;
 
 public abstract class Buyer {
-	protected String email;
-	protected int creditCard;
+
 	protected boolean isSubscribed;
 	protected ArrayList<Order> orders;
 	
-	public Buyer(String email, int creditCard) {
-		this.email = email;
-		this.creditCard = creditCard;
+	public Buyer() {
+		orders = new ArrayList<Order>();
 	}
 	
 	public abstract Document searchCatalog();

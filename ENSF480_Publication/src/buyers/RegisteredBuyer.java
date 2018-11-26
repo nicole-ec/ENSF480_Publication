@@ -11,7 +11,7 @@ public class RegisteredBuyer extends Buyer{
 	private ArrayList<Promotion> promo;
 	
 	public RegisteredBuyer(String email, int creditCard, String username, String password) {
-		super(email, creditCard);
+		super();
 		isSubscribed = true;
 		this.username = username;
 		this.password = password;
