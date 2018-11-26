@@ -11,6 +11,11 @@ public abstract class Buyer {
 	
 	public Buyer() {
 		order = new Order();
+		inventory = new Inventory();
+	}
+	
+	public Order getOrder() {
+		return order;
 	}
 	
 	public abstract Document searchCatalog(String title);

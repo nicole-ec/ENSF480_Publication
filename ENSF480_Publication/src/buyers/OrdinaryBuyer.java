@@ -55,11 +55,23 @@ public class OrdinaryBuyer extends Buyer{
 	@Override
 	public Order makeOrder(Document d) {
 		// TODO Auto-generated method stub
-		double totalPrice = order.calculateTotal();
+		double totalPrice = 0;
 		
-		System.out.println("===============================RECEIPT===============================");
+		System.out.println("===============================RECEIPT===============================\n"
+							+"Documents:\t\t\tPrice:");
 		
+		for(int i = 0; i< order.getDoc().size(); i++) {
+			
+			System.out.println(order.getDoc().get(i).getTitle()
+								+ "\t\t\t"
+								+ order.getDoc().get(i).getPrice());
+			
+			totalPrice += order.getDoc().get(i).getPrice();
+			
+		}
 		
+		System.out.println("==================================================================\nTotal price: "
+							+ totalPrice);
 		
 		return null;
 	}

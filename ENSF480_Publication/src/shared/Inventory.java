@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 public class Inventory {
 	private ArrayList<Document> docs;
-
+	
+	public Inventory() {
+		docs = new ArrayList<Document>();
+	}
 	
 	public void update(ArrayList<Document> doc)
 	{

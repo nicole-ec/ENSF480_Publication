@@ -7,7 +7,7 @@ public class Author {
 	private String password;
 	private String name;
 	
-	public Author(String username, String pasword, String name) {
+	public Author(String username, String password, String name) {
 		this.username = username;
 		this.password = password;
 		this.name = name;
