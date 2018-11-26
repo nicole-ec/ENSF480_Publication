@@ -28,6 +28,7 @@ public class mainFile {
 	private static String choice;
 	private static int isbn;
 	private static ArrayList<Promotion> promos;
+	private static Inventory inventory;
 
 	public static void operator() throws IOException {
 
@@ -35,14 +36,13 @@ public class mainFile {
 			System.out.println("What would you like to do? Please choose one of the following:\n1.Add a document\n"
 					+ "2.Remove a document\n" + "3.Update a document\n" + "4.Quit\n");
 			choice = scan.nextLine();
-			
-			if(choice.length()>1) {
+
+			if (choice.length() > 1) {
+				System.out.println("Invalid input. Please try again.");
+			} else if (choice.compareTo("1") < 0 || choice.compareTo("4") > 0) {
 				System.out.println("Invalid input. Please try again.");
 			}
-			else if(choice.compareTo("1")<0 || choice.compareTo("4")>0) {
-				System.out.println("Invalid input. Please try again.");
-			}
-			
+
 			else if (Integer.parseInt(choice) == 1) {
 				System.out.println("Please enter name of document you would like to add:");
 				title = scan.nextLine();
@@ -86,14 +86,13 @@ public class mainFile {
 			System.out.println("What would you like to do? Please choose one of the following:\n1.Search a book\n"
 					+ "2.Place an order\n" + "3.Unsubscribe\n" + "4.Quit\n");
 			choice = scan.nextLine();
-			
-			if(choice.length()>1) {
+
+			if (choice.length() > 1) {
+				System.out.println("Invalid input. Please try again.");
+			} else if (choice.compareTo("1") < 0 || choice.compareTo("4") > 0) {
 				System.out.println("Invalid input. Please try again.");
 			}
-			else if(choice.compareTo("1")<0 || choice.compareTo("4")>0) {
-				System.out.println("Invalid input. Please try again.");
-			}
-			
+
 			else if (Integer.parseInt(choice) == 1) {
 				System.out.println("Please enter name of book:");
 				title = scan.nextLine();
@@ -142,10 +141,9 @@ public class mainFile {
 							+ "2.Place an order\n" + "3.Subscribe\n" + "4.Purchase\n" + "5.Quit\n");
 
 			choice = scan.nextLine();
-			if(choice.length()>1) {
+			if (choice.length() > 1) {
 				System.out.println("Invalid input. Please try again.");
-			}
-			else if(choice.compareTo("1")<0 || choice.compareTo("5")>0) {
+			} else if (choice.compareTo("1") < 0 || choice.compareTo("5") > 0) {
 				System.out.println("Invalid input. Please try again.");
 			}
 
@@ -205,12 +203,10 @@ public class mainFile {
 
 				if (response.equalsIgnoreCase("yes")) {
 					buyer.makeOrder();
-				}
-				else if(response.equalsIgnoreCase("no")) {
+				} else if (response.equalsIgnoreCase("no")) {
 					System.out.println("Clearing your order!");
 					continue;
-				}
-				else {
+				} else {
 					System.out.println("Invalid input!");
 				}
 			}
@@ -256,18 +252,36 @@ public class mainFile {
 			System.out.println("The username and password you entered does not exist.");
 		}
 	}
-	
+
 	public static void startup() {
+		
+		inventory = new Inventory();
 		promos = new ArrayList<Promotion>();
 		
-		
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
+			String line = reader.readLine();
+			
+			while (line != null) {
+				String[] parts = line.split(";");
+				if (title.equalsIgnoreCase(parts[1])) {
+					Document doc = new Document(Integer.parseInt(parts[0]), parts[1], parts[2], Double.parseDouble(parts[3]));
+					promos.add(new Promotion());
+				line = reader.readLine();
+				}
+			}
+			
+			reader.close();
+		} catch(IOException e) {
+			
+		}
 		
 	}
 
 	public static void main(String args[]) throws IOException {
-		
+
 		startup();
-		
+
 		login();
 	}// main function
 
