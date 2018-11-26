@@ -22,12 +22,13 @@ import java.util.Scanner;
 public class mainFile {
 
 	private static Scanner scan = new Scanner(System.in);
-	private static String username, password, title = null, response;
+	private static String username, password, title = null, response,author;
 	private static Buyer buyer;
 	private static Staff staff;
 	private static Document d = null;
 	private static String choice;
 	private static int isbn;
+	private static double price;
 	private static ArrayList<Promotion> promos;
 	private static Inventory inventory;
 
@@ -45,9 +46,16 @@ public class mainFile {
 			}
 
 			else if (Integer.parseInt(choice) == 1) {
-				System.out.println("Please enter name of document you would like to add:");
+				System.out.println("Please enter isbn number of the document you would like to add:");
+				isbn = Integer.parseInt(scan.nextLine());
+				System.out.println("Please enter title of document you would like to add:");
 				title = scan.nextLine();
-				// d = ((Operator)staff).addDoc(title); Fix this based on how to pass document
+				System.out.println("Please enter the author of the document you would like to add:");
+				author = scan.nextLine();
+				System.out.println("Please enter price of the document you would like to add:");
+				price = Double.parseDouble(scan.nextLine());
+				d = new Document(isbn,title,author,price);
+				((Operator)staff).addDoc(d); 
 
 			} // choice 1 statement
 
@@ -56,21 +64,58 @@ public class mainFile {
 					System.out.println("Please choose a document first!");
 					continue;
 				} else {
-					System.out.println("Would you like to remove " + isbn + "? (yes/no)");
-					response = scan.nextLine();
-					if (response.equals("yes")) {
-						((Operator) staff).removeDoc(isbn);
-						d = null;
+					System.out.println("Please enter isbn number of the document you would like to remove:");
+					isbn = Integer.parseInt(scan.nextLine());
+
+					BufferedReader reader = new BufferedReader(new FileReader("document.txt"));
+					String line = reader.readLine();
+					while (line != null) {
+						String[] parts = line.split(";");
+						if (Integer.toString(isbn).equals(parts[0])) {
+							((Operator) staff).removeDoc(isbn);
+							d = null;
+						}
 						continue;
 					}
 				}
 			} // choice 2 if statement
 
 			else if (Integer.parseInt(choice) == 3) {
-				/*
-				 * Update doc here
-				 */
-
+				System.out.println("Please enter isbn number of the document you would like to update:");
+				isbn = Integer.parseInt(scan.nextLine());
+				int option;
+				
+				BufferedReader reader = new BufferedReader(new FileReader("document.txt"));
+				String line = reader.readLine();
+				while (line != null) {
+					String[] parts = line.split(";");
+					if (Integer.toString(isbn).equals(parts[0])) {
+						System.out.println("Please select what you would like to change: "+"\n1.Update title\n"+"\n2.Update author\n"+"\n3.Update price\n");
+						option = scan.nextInt();
+						if(option == 1)
+						{
+							System.out.println("Please enter what you would like to change the title to:");
+							title = scan.nextLine();
+						}
+						else if(option == 2)
+						{
+							System.out.println("Please enter the what you would like to update author to:");
+							author = scan.nextLine();
+						}
+						else if(option == 3)
+						{
+							System.out.println("Please enter what you would like to change the price to:");
+							price = Double.parseDouble(scan.nextLine());
+						}
+						
+						d = new Document(isbn,title,author,price);
+						((Operator)staff).updateDoc(d); 
+						break;
+					}
+					line = reader.readLine();
+				}
+				reader.close();
+				System.out.println("The isbn number you entered does not exist.");
 			} // choice 3 statement
 
 			else if (Integer.parseInt(choice) == 4) {
@@ -333,7 +378,7 @@ public class mainFile {
 	public static void main(String args[]) throws IOException {
 
 		startup();
-
+		System.out.println("=========================Welcome to Unlimited Publications Agency=========================");
 		login();
 	}// main function
 

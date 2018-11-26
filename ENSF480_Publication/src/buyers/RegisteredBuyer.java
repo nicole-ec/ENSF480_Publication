@@ -52,7 +52,7 @@ public class RegisteredBuyer extends Buyer{
 		writer.close(); 
 		reader.close();
 		fileName.delete();
-		tempFile.renameTo(fileName);
+		boolean success = tempFile.renameTo(fileName);
 	}
 	
 	public void addPromo(Promotion p) {
