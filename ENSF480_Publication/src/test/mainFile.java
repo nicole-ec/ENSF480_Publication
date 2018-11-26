@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class mainFile {
@@ -190,7 +191,7 @@ public class mainFile {
 					continue;
 				}
 
-				buyer = new RegisteredBuyer(newname, newpass, newemail, newCredit, null);
+				buyer = new RegisteredBuyer(newname, newpass, newemail, newCredit, promos);
 				System.out.println("You have subscribed!");
 				login();
 			} // choice 3 statement
@@ -237,7 +238,7 @@ public class mainFile {
 				String[] parts = line.split(";");
 				if (username.equals(parts[0]) && password.equals(parts[1]) && parts[2].equals("R")) {
 
-					buyer = new RegisteredBuyer(username, password, null, 0, null);
+					buyer = new RegisteredBuyer(username, password, parts[3], Integer.parseInt(parts[4]), promos);
 					registeredBuyer();
 
 					break;
@@ -264,11 +265,18 @@ public class mainFile {
 			
 			while (line != null) {
 				String[] parts = line.split(";");
-				if (title.equalsIgnoreCase(parts[1])) {
-					Document doc = new Document(Integer.parseInt(parts[0]), parts[1], parts[2], Double.parseDouble(parts[3]));
-					promos.add(new Promotion());
+				Document doc = new Document(Integer.parseInt(parts[0]), parts[1], parts[2], Double.parseDouble(parts[3]));
+				inventory.add(doc);
 				line = reader.readLine();
-				}
+			}
+			
+			for(int i=0; i<3; i++) {
+				Random rand = new Random();
+				ArrayList<Document> temp = inventory.getList();
+				int randomIndex = rand.nextInt(temp.size()); 
+				Promotion p = new Promotion(temp.get(randomIndex), (temp.get(randomIndex).getPrice())*0.75);
+				temp.remove(randomIndex);
+				promos.add(p);
 			}
 			
 			reader.close();
