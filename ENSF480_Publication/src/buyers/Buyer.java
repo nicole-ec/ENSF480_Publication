@@ -66,7 +66,6 @@ public abstract class Buyer {
 	
 	public void resetOrder() {
 		order = new Order();
-		System.out.println("cleared order successfully");
 	}
 
 }

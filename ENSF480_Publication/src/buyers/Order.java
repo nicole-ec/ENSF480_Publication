@@ -19,6 +19,14 @@ public class Order {
 		docs.add(d);
 	}
 	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public void setCreditCard(int creditCard) {
+		this.creditCard = creditCard;
+	}
+	
 	public ArrayList<Document> getDoc(){
 		return docs;
 	}

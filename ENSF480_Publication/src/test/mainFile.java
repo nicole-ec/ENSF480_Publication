@@ -4,22 +4,16 @@ import staff.*;
 import buyers.*;
 import shared.*;
 
-/*
- * TESTS:
- * 
- * 
- * */
-
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class mainFile {
 
@@ -351,6 +345,7 @@ public class mainFile {
 					System.out.println("Purchase successful!");
 				} else if (response.equalsIgnoreCase("no")) {
 					buyer.resetOrder();
+					System.out.println("Cleared order successfully!");
 					continue;
 				} else {
 					System.out.println("Invalid input!");
@@ -366,19 +361,20 @@ public class mainFile {
 	}
 
 	public static void ordinaryBuyer() throws IOException {
+		int buyChoice;
 		while (true) {
 			System.out.println(
 					"What would you like to do? Please choose one of the following (type number):\n1.Search a book\n"
 							+ "2.Subscribe\n" + "3.Purchase\n" + "4.Quit");
 
-			choice = scan.nextLine();
-			if (choice.length() > 1) {
-				System.out.println("Invalid input. Please try again.");
-			} else if (choice.compareTo("1") < 0 || choice.compareTo("5") > 0) {
-				System.out.println("Invalid input. Please try again.");
+			while(!scan.hasNextInt()) {
+				scan.next();
+				System.out.println("Please enter a valid choice:");
 			}
-
-			else if (Integer.parseInt(choice) == 1) {
+			buyChoice= scan.nextInt();
+			scan = new Scanner(System.in);
+			
+			if (buyChoice == 1) {
 				System.out.println("Please enter name of book:");
 				title = scan.nextLine();
 				d = buyer.searchCatalog(title);
@@ -405,7 +401,7 @@ public class mainFile {
 
 			} // choice 1 statement
 
-			else if (Integer.parseInt(choice) == 2) {
+			else if (buyChoice == 2) {
 				scan = new Scanner(System.in);
 				System.out.println("Please enter a username:");
 				String newname = scan.nextLine();
@@ -426,7 +422,7 @@ public class mainFile {
 				login();
 			} // choice 3 statement
 
-			else if (Integer.parseInt(choice) == 3) {
+			else if (buyChoice == 3) {
 				if (!buyer.showList()) {
 
 					System.out.println("You have no orders!");
@@ -439,12 +435,28 @@ public class mainFile {
 				response = scan.nextLine();
 
 				if (response.equalsIgnoreCase("yes")) {
-					System.out.println("Using saved credit card information...");
+					System.out.println("Please enter your email address:");
+					String email = scan.nextLine();
+					buyer.getOrder().setEmail(email);
+					
+					int cardnum;
+					do {
+						System.out.println("Please enter your credit card number:");
+						
+						while(!scan.hasNextInt()) {
+							scan.next();
+							System.out.println("Please enter a 9 digit number:");
+						}
+						cardnum = scan.nextInt();
+					}while(Integer.toString(cardnum).length() != 9);
+					buyer.getOrder().setCreditCard(cardnum);
+					
 					buyer.makeOrder();
 					buyer.resetOrder();
 					System.out.println("Purchase successful!");
 				} else if (response.equalsIgnoreCase("no")) {
 					buyer.resetOrder();
+					System.out.println("Cleared order successfully!");
 					continue;
 				} else {
 					System.out.println("Invalid input!");
@@ -452,9 +464,12 @@ public class mainFile {
 				}
 			}
 
-			else if (Integer.parseInt(choice) == 4) {
+			else if (buyChoice == 4) {
 				System.out.println("Have a good day!");
 				login();
+			}
+			else {
+				System.out.println("Please enter a valid choice:");
 			}
 		} // while loop for ordinary buyer
 
@@ -463,7 +478,7 @@ public class mainFile {
 	public static void login() throws IOException {
 		while (true) {
 			scan = new Scanner(System.in);
-			System.out.println("Please enter username. If you are an ordinary buyer, please enter 'ordinary':");
+			System.out.println("please enter username. If you are an ordinary buyer, please enter 'ordinary':");
 			username = scan.nextLine();
 			if (username.equalsIgnoreCase("ordinary")) {
 				buyer = new OrdinaryBuyer();
@@ -479,6 +494,8 @@ public class mainFile {
 				if (username.equals(parts[0]) && password.equals(parts[1]) && parts[2].equals("R")) {
 
 					buyer = new RegisteredBuyer(username, password, parts[3], Integer.parseInt(parts[4]), promos);
+					buyer.getOrder().setEmail(parts[3]);
+					buyer.getOrder().setCreditCard(Integer.parseInt(parts[4]));
 					registeredBuyer();
 					break;
 				} else if (username.equals(parts[0]) && password.equals(parts[1]) && parts[2].equals("O")) {
@@ -536,8 +553,8 @@ public class mainFile {
 	public static void main(String args[]) throws IOException {
 
 		startup();
-		System.out.println(
-				"\n\n========================= Welcome to Unlimited Publications Agency =========================\n\n");
+		System.out
+				.println("=========================Welcome to Unlimited Publications Agency=========================");
 		login();
 	}// main function
 
