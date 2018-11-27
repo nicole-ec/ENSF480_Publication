@@ -21,13 +21,13 @@ public class Operator extends Staff{
 		super(username,password);
 	}
 	
-	public void addDoc(Document doc) throws IOException {
+	private void addDoctoFile(Document doc) throws IOException {
 		Writer output = new BufferedWriter(new FileWriter("documents.txt", true));
 		output.append("\n"+doc.getIsbn()+";"+doc.getTitle()+";"+doc.getAuthor()+";"+doc.getPrice());
 		output.close();
 	}
 	
-	public void removeDoc(int isbn) throws IOException {
+	private void removeDocfromFile(int isbn) throws IOException {
 		File fileName = new File("documents.txt");
 		File tempFile = new File("documents1.txt");
 
@@ -48,8 +48,22 @@ public class Operator extends Staff{
 		tempFile.renameTo(fileName);
 	}
 	
-	public void updateDoc(Document doc) throws IOException {
-		removeDoc((int)doc.getIsbn());
-		addDoc(doc);		
+	public Inventory addDoc(Document doc, Inventory inventory) throws IOException {
+		inventory.add(doc);
+		addDoctoFile(doc);
+		return inventory;
+	}
+	
+	public Inventory removeDoc(int index, int isbn, Inventory inventory) throws IOException {
+		inventory.getList().remove(index);
+		return inventory;
+	}
+	
+	public Inventory updateDoc(int index, Document doc, Inventory inventory) throws IOException {
+		removeDocfromFile((int)doc.getIsbn());
+		addDoctoFile(doc);		
+		inventory.getList().remove(index);
+		inventory.add(doc);
+		return inventory;
 	}
 }

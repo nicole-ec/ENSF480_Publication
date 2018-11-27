@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Scanner;
 
-import shared.Document;
+import shared.*;
 
 public class OrdinaryBuyer extends Buyer{
 
@@ -43,26 +43,14 @@ public class OrdinaryBuyer extends Buyer{
 	}
 	
 	@Override
-	public Document searchCatalog(String title) throws IOException{
+	public Document searchCatalog(String title, Inventory inventory) throws IOException{
 		// TODO Auto-generated method stub
 		
-		BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
-		String line = reader.readLine();
-		while (line != null) {
-			
-			if (line.isEmpty()) {
-				line = reader.readLine();
-				continue;
+		for (int i=0; i<inventory.getList().size(); i++) {
+			if (title.equalsIgnoreCase(inventory.getList().get(i).getTitle())) {
+				return inventory.getList().get(i);
 			}
-			
-			String[] parts = line.split(";");
-			if (title.equalsIgnoreCase(parts[1])) {
-				Document doc = new Document(Integer.parseInt(parts[0]), parts[1], parts[2], Double.parseDouble(parts[3]));
-				return doc;
-			}
-			line = reader.readLine();
 		}
-		reader.close();
 		return null;
 	}
 

@@ -21,7 +21,7 @@ public abstract class Buyer {
 		return order;
 	}
 
-	public abstract Document searchCatalog(String title) throws IOException;
+	public abstract Document searchCatalog(String title, Inventory inventory) throws IOException;
 
 	// maybe this function should be defined for all of them,
 	// and just let each buyer have a different way to search
