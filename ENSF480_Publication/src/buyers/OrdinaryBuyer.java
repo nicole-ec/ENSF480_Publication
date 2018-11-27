@@ -46,12 +46,23 @@ public class OrdinaryBuyer extends Buyer{
 	public Document searchCatalog(String title, Inventory inventory) throws IOException{
 		// TODO Auto-generated method stub
 		
+		showInventory(inventory);
+		System.out.println("Printed inventory");
+		
 		for (int i=0; i<inventory.getList().size(); i++) {
 			if (title.equalsIgnoreCase(inventory.getList().get(i).getTitle())) {
 				return inventory.getList().get(i);
 			}
 		}
 		return null;
+	}
+	
+	private void showInventory(Inventory invent) {
+		for(int i=0; i<invent.getList().size(); i++) {
+			System.out.println(invent.getList().get(i).getTitle());
+			
+		}
+		System.out.println("size of inventory is: "+invent.getList().size());
 	}
 
 }
