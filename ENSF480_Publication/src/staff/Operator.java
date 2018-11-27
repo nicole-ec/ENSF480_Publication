@@ -60,7 +60,6 @@ public class Operator extends Staff{
 	}
 	
 	public Inventory updateDoc(int index, Document doc, Inventory inventory) throws IOException {
-		
 		removeDocfromFile((int)doc.getIsbn());
 		addDoctoFile(doc);		
 		inventory.getList().remove(index);

@@ -9,11 +9,6 @@ public class Inventory {
 		docs = new ArrayList<Document>();
 	}
 	
-	public void update(ArrayList<Document> doc)
-	{
-		
-	}
-
 	public ArrayList<Document> getList() {
 		
 		return docs;

@@ -27,7 +27,6 @@ public class mainFile {
 	private static Inventory inventory;
 
 	public static int takeIsbnInput() {
-		scan = new Scanner(System.in);
 		do {
 			System.out.println("Please enter isbn number of the document you would like to add:");
 
@@ -40,168 +39,164 @@ public class mainFile {
 		return isbn;
 	}
 
-	// private static void updateDoc(String[] parts, boolean authorUpdate, boolean
-	// titleUpdate, boolean priceUpdate)
-	// throws IOException {
-	// if (titleUpdate == true && authorUpdate == true && priceUpdate == true) {
-	// d = new Document(isbn, title, author, price);
-	// ((Operator) staff).updateDoc(d);
-	// } else if (titleUpdate == true && authorUpdate == true && priceUpdate ==
-	// false) {
-	// price = Double.parseDouble(parts[3]);
-	// d = new Document(isbn, title, author, price);
-	// ((Operator) staff).updateDoc(d);
-	// } else if (titleUpdate == true && authorUpdate == false && priceUpdate ==
-	// true) {
-	// author = parts[2];
-	// d = new Document(isbn, title, author, price);
-	// ((Operator) staff).updateDoc(d);
-	// } else if (titleUpdate == false && authorUpdate == true && priceUpdate ==
-	// true) {
-	// title = parts[1];
-	// d = new Document(isbn, title, author, price);
-	// ((Operator) staff).updateDoc(d);
-	// } else if (titleUpdate == true && authorUpdate == false && priceUpdate ==
-	// false) {
-	// author = parts[2];
-	// price = Double.parseDouble(parts[3]);
-	// d = new Document(isbn, title, author, price);
-	// ((Operator) staff).updateDoc(d);
-	// } else if (titleUpdate == false && authorUpdate == true && priceUpdate ==
-	// false) {
-	// title = parts[1];
-	// price = Double.parseDouble(parts[3]);
-	// d = new Document(isbn, title, author, price);
-	// ((Operator) staff).updateDoc(d);
-	// } else if (titleUpdate == false && authorUpdate == false && priceUpdate ==
-	// true) {
-	// author = parts[2];
-	// title = parts[1];
-	// d = new Document(isbn, title, author, price);
-	// ((Operator) staff).updateDoc(d);
-	// } else if (titleUpdate == false && authorUpdate == false && priceUpdate ==
-	// false) {
-	// d = new Document(isbn, title, author, price);
-	// ((Operator) staff).updateDoc(d);
-	// }
-	// }
+//	private static void updateDoc(String[] parts, boolean authorUpdate, boolean titleUpdate, boolean priceUpdate)
+//			throws IOException {
+//		if (titleUpdate == true && authorUpdate == true && priceUpdate == true) {
+//			d = new Document(isbn, title, author, price);
+//			((Operator) staff).updateDoc(d);
+//		} else if (titleUpdate == true && authorUpdate == true && priceUpdate == false) {
+//			price = Double.parseDouble(parts[3]);
+//			d = new Document(isbn, title, author, price);
+//			((Operator) staff).updateDoc(d);
+//		} else if (titleUpdate == true && authorUpdate == false && priceUpdate == true) {
+//			author = parts[2];
+//			d = new Document(isbn, title, author, price);
+//			((Operator) staff).updateDoc(d);
+//		} else if (titleUpdate == false && authorUpdate == true && priceUpdate == true) {
+//			title = parts[1];
+//			d = new Document(isbn, title, author, price);
+//			((Operator) staff).updateDoc(d);
+//		} else if (titleUpdate == true && authorUpdate == false && priceUpdate == false) {
+//			author = parts[2];
+//			price = Double.parseDouble(parts[3]);
+//			d = new Document(isbn, title, author, price);
+//			((Operator) staff).updateDoc(d);
+//		} else if (titleUpdate == false && authorUpdate == true && priceUpdate == false) {
+//			title = parts[1];
+//			price = Double.parseDouble(parts[3]);
+//			d = new Document(isbn, title, author, price);
+//			((Operator) staff).updateDoc(d);
+//		} else if (titleUpdate == false && authorUpdate == false && priceUpdate == true) {
+//			author = parts[2];
+//			title = parts[1];
+//			d = new Document(isbn, title, author, price);
+//			((Operator) staff).updateDoc(d);
+//		} else if (titleUpdate == false && authorUpdate == false && priceUpdate == false) {
+//			d = new Document(isbn, title, author, price);
+//			((Operator) staff).updateDoc(d);
+//		}
+//	}
 
 	public static int choices() throws IOException {
-
+		
 		int option;
 		scan = new Scanner(System.in);
 		do {
-			System.out.println("Please select what you would like to change: " + "\n1.Update title"
-					+ "\n2.Update author" + "\n3.Update price" + "\n4.Quit");
+			System.out.println("Please select what you would like to change: " + "\n1.Update title" + "\n2.Update author"
+				+ "\n3.Update price" + "\n4.Quit");
 
 			while (!scan.hasNextInt()) {
 				scan.next();
 				System.out.println("Please enter a valid input:");
 			}
 			option = scan.nextInt();
-		} while (option < 0 && option > 4);
-
+		} while (option<0 && option>4);
+		
 		return option;
 
 	}
 
+	public static void index(int number)
+	{
+		int i=0;
+		do
+		{
+		 System.out.println(inventory.getList().size()+" "+number+" "+inventory.getItem(i).getIsbn());
+			if (number == inventory.getItem(i).getIsbn()) {
+				System.out.println("This isbn number already exists! Please choose another number.");
+				number = takeIsbnInput();
+		}
+			i++;
+		}while(i<inventory.getList().size());
+	}
+	
 	public static void operator() throws IOException {
 		int chooseOption;
 		while (true) {
 			System.out.println("What would you like to do? Please choose one of the following:\n1.Add a document\n"
 					+ "2.Remove a document\n" + "3.Update a document\n" + "4.Quit\n");
-
+			
 			do {
 				System.out.println("Please choose a valid input: ");
 				while (!scan.hasNextInt()) {
 					scan.next();
 					System.out.println("Please enter a valid input:");
 				}
-
+				
 				chooseOption = scan.nextInt();
 			} while (chooseOption < 1 && chooseOption > 4);
-			if (chooseOption == 1) {
-				int number;
-				number = takeIsbnInput();
-				int i = 0;
-				while (i < inventory.getList().size()) {
-					 System.out.println(number+" "+inventory.getItem(i).getIsbn());
-					
-					if (number == inventory.getItem(i).getIsbn()) {
-						System.out.println("This isbn number already exists as "+inventory.getItem(i).getTitle()+"! Please choose another number.");
-						i = 0;
-						number = takeIsbnInput();
-						continue;
-					}
-					i++;
-				}
-
-				// for (int i=0; i<inventory.getList().size(); i++) {
-				// if (number == inventory.getItem(i).getIsbn()) {
-				// System.out.println("This isbn number already exists! Please choose another
-				// number.");
-				// takeIsbnInput();
-				// i = 0;
-				// }
-				// }
-
-				// BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
-				// String line = reader.readLine();
-				//
-				// while (line != null) {
-				//
-				// if (line.isEmpty()) {
-				// line = reader.readLine();
-				// continue;
-				// }
-				//
-				// String[] parts = line.split(";");
-				// if (number == Integer.parseInt(parts[0])) {
-				//
-				// System.out.println("This isbn number already exists! Please choose another
-				// number.");
-				// takeIsbnInput();
-				// break;
-				// }
-				// line = reader.readLine();
-				// }
-				// reader.close();
+			 if (chooseOption == 1) {
+				 int number;
+				 number = takeIsbnInput();
+				 	 
+				 
+				 int i=0;
+				 do {
+						if (number == inventory.getItem(i).getIsbn()) {
+							System.out.println("This isbn number already exists! Please choose another number.");
+							number = takeIsbnInput();
+							index(number);
+						}
+						i++;
+				 }while(i<inventory.getList().size());
+				 
+				 
+//					BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
+//					String line = reader.readLine();
+//					
+//					while (line != null) {
+//						
+//						if (line.isEmpty()) {
+//							line = reader.readLine();
+//							continue;
+//						}
+//						
+//						String[] parts = line.split(";");
+//						if (number == Integer.parseInt(parts[0])) {
+//							
+//							System.out.println("This isbn number already exists! Please choose another number.");
+//							takeIsbnInput();
+//							break;
+//						}
+//						line = reader.readLine();
+//					}
+//					reader.close();
 				scan = new Scanner(System.in);
 				System.out.println("Please enter title of document you would like to add:");
 				title = scan.nextLine();
 				System.out.println("Please enter the author of the document you would like to add:");
 				author = scan.nextLine();
 				System.out.println("Please enter price of the document you would like to add:");
-
-				while (!scan.hasNextDouble()) {
+				
+				while(!scan.hasNextDouble()) {
 					scan.next();
 					System.out.println("Please enter a valid price:");
 				}
 				price = scan.nextDouble();
-				if (price <= 0) {
+				if(price <= 0) {
 					System.out.println("Invalid price!!\n");
 					continue;
 				}
 				d = new Document(isbn, title, author, price);
 				inventory = ((Operator) staff).addDoc(d, inventory);
 				System.out.println("Document added successfully!");
-
+				
 			} // choice 1 statement
 
 			else if (chooseOption == 2) {
 				do {
 					System.out.println("Please enter isbn number of the document you would like to remove:");
-
-					while (!scan.hasNextInt()) {
+					
+					while(!scan.hasNextInt()) {
 						scan.next();
 						System.out.println("Please enter a 9 digit number:");
 					}
 					isbn = scan.nextInt();
-				} while (Integer.toString(isbn).length() != 9);
-
+				}while(Integer.toString(isbn).length() != 9);
+				
 				boolean removed = false;
-
-				for (int i = 0; i < inventory.getList().size(); i++) {
+				
+				for (int i=0; i<inventory.getList().size(); i++) {
 					if (isbn == inventory.getItem(i).getIsbn()) {
 						inventory = ((Operator) staff).removeDoc(i, isbn, inventory);
 						System.out.println("Document is removed");
@@ -209,32 +204,32 @@ public class mainFile {
 						break;
 					}
 				}
-
-				if (!removed) {
+				
+				if(!removed) {
 					System.out.println("The isbn number you entered does not exist.");
 				}
-
-				// BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
-				// String line = reader.readLine();
-				// while (line != null) {
-				//
-				// if (line.isEmpty()) {
-				// line = reader.readLine();
-				// continue;
-				// }
-				//
-				// String[] parts = line.split(";");
-				// if (Integer.toString(isbn).equals(parts[0])) {
-				// ((Operator) staff).removeDoc(isbn);
-				// d = null;
-				// System.out.println("Document is removed");
-				// break;
-				// }
-				// line = reader.readLine();
-				// }
-				// reader.close();
-				// if(line == null)
-				// System.out.println("The isbn number you entered does not exist.");
+				
+//				BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
+//				String line = reader.readLine();
+//				while (line != null) {
+//					
+//					if (line.isEmpty()) {
+//						line = reader.readLine();
+//						continue;
+//					}
+//					
+//					String[] parts = line.split(";");
+//					if (Integer.toString(isbn).equals(parts[0])) {
+//						((Operator) staff).removeDoc(isbn);
+//						d = null;
+//						System.out.println("Document is removed");
+//						break;
+//					}
+//					line = reader.readLine();
+//				}
+//				reader.close();
+//				if(line == null)
+//					System.out.println("The isbn number you entered does not exist.");
 			} // choice 2 if statement
 
 			else if (chooseOption == 3) {
@@ -303,78 +298,75 @@ public class mainFile {
 				if (!found) {
 					System.out.println("The isbn number you entered does not exist.");
 				}
-
-				// BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
-				// String line = reader.readLine();
-				// boolean titleUpdate = false;
-				// boolean authorUpdate = false;
-				// boolean priceUpdate = false;
-				//
-				// while (line != null) {
-				//
-				// if (line.isEmpty()) {
-				// line = reader.readLine();
-				// continue;
-				// }
-				//
-				// String[] parts = line.split(";");
-				// if (Integer.toString(isbn).equals(parts[0])) {
-				//
-				// int option;
-				// option = choices();
-				// while (option <= 4) {
-				// if (option == 1) {
-				// scan = new Scanner(System.in);
-				// System.out.println("Please enter what you would like to change the title
-				// to:");
-				// title = scan.nextLine();
-				// titleUpdate = true;
-				// System.out.println(title);
-				// option = choices();
-				//
-				//
-				// } else if (option == 2) {
-				// scan = new Scanner(System.in);
-				// System.out.println("Please enter the what you would like to update author
-				// to:");
-				// author = scan.nextLine();
-				// authorUpdate = true;
-				// option = choices();
-				//
-				// } else if (option == 3) {
-				// scan = new Scanner(System.in);
-				// System.out.println("Please enter what you would like to change the price
-				// to:");
-				//
-				// while(!scan.hasNextDouble()) {
-				// scan.next();
-				// System.out.println("Please enter a valid price:");
-				// }
-				// price = scan.nextDouble();
-				// priceUpdate = true;
-				// System.out.println("success");
-				// option = choices();
-				//
-				//
-				// } else if (option == 4) {
-				//
-				// updateDoc(parts, authorUpdate, titleUpdate, priceUpdate);
-				//
-				// System.out.println("Have a good day!");
-				// login();
-				// break;
-				// }
-				// }
-				//
-				// break;
-				// }
-				//
-				// line = reader.readLine();
-				// }
-				//
-				// System.out.println("This number does not exist in the inventory.");
-				//
-				// reader.close();
+				
+//				BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
+//				String line = reader.readLine();
+//				boolean titleUpdate = false;
+//				boolean authorUpdate = false;
+//				boolean priceUpdate = false;
+//				
+//				while (line != null) {
+//					
+//					if (line.isEmpty()) {
+//						line = reader.readLine();
+//						continue;
+//					}
+//					
+//					String[] parts = line.split(";");
+//					if (Integer.toString(isbn).equals(parts[0])) {
+//
+//						int option;
+//						option = choices();
+//						while (option <= 4) {
+//							if (option == 1) {
+//								scan = new Scanner(System.in);
+//								System.out.println("Please enter what you would like to change the title to:");
+//								title = scan.nextLine();
+//								titleUpdate = true;
+//								System.out.println(title);
+//								option = choices();
+//							
+//
+//							} else if (option == 2) {
+//								scan = new Scanner(System.in);
+//								System.out.println("Please enter the what you would like to update author to:");
+//								author = scan.nextLine();
+//								authorUpdate = true;
+//								option = choices();
+//								
+//							} else if (option == 3) {
+//								scan = new Scanner(System.in);
+//								System.out.println("Please enter what you would like to change the price to:");
+//
+//								while(!scan.hasNextDouble()) {
+//									scan.next();
+//									System.out.println("Please enter a valid price:");
+//								}
+//								price = scan.nextDouble();
+//								priceUpdate = true;
+//								System.out.println("success");
+//								option = choices();
+//								
+//						
+//							} else if (option == 4) {
+//								
+//								updateDoc(parts, authorUpdate, titleUpdate, priceUpdate);
+//								
+//								System.out.println("Have a good day!");
+//								login();
+//								break;
+//							}
+//						}
+//						
+//						break;
+//					}
+//					
+//					line = reader.readLine();
+//				}
+//			
+//					System.out.println("This number does not exist in the inventory.");
+//			
+//				reader.close();
 			} // choice 3 statement
 			else if (chooseOption == 4) {
 				System.out.println("Have a good day!");
@@ -471,13 +463,13 @@ public class mainFile {
 					"What would you like to do? Please choose one of the following (type number):\n1.Search a book\n"
 							+ "2.Subscribe\n" + "3.Purchase\n" + "4.Quit");
 
-			while (!scan.hasNextInt()) {
+			while(!scan.hasNextInt()) {
 				scan.next();
 				System.out.println("Please enter a valid choice:");
 			}
-			buyChoice = scan.nextInt();
+			buyChoice= scan.nextInt();
 			scan = new Scanner(System.in);
-
+			
 			if (buyChoice == 1) {
 				System.out.println("Please enter name of book:");
 				title = scan.nextLine();
@@ -542,19 +534,19 @@ public class mainFile {
 					System.out.println("Please enter your email address:");
 					String email = scan.nextLine();
 					buyer.getOrder().setEmail(email);
-
+					
 					int cardnum;
 					do {
 						System.out.println("Please enter your credit card number:");
-
-						while (!scan.hasNextInt()) {
+						
+						while(!scan.hasNextInt()) {
 							scan.next();
 							System.out.println("Please enter a 9 digit number:");
 						}
 						cardnum = scan.nextInt();
-					} while (Integer.toString(cardnum).length() != 9);
+					}while(Integer.toString(cardnum).length() != 9);
 					buyer.getOrder().setCreditCard(cardnum);
-
+					
 					buyer.makeOrder();
 					buyer.resetOrder();
 					System.out.println("Purchase successful!");
@@ -571,7 +563,8 @@ public class mainFile {
 			else if (buyChoice == 4) {
 				System.out.println("Have a good day!");
 				login();
-			} else {
+			}
+			else {
 				System.out.println("Please enter a valid choice:");
 			}
 		} // while loop for ordinary buyer
@@ -619,27 +612,30 @@ public class mainFile {
 		promos = new ArrayList<Promotion>();
 
 		try {
-
+			
 			BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
 			String line = reader.readLine();
 
 			while (line != null) {
-
+				
 				if (line.isEmpty()) {
 					line = reader.readLine();
 					continue;
 				}
-
+				
+				
 				String[] parts = line.split(";");
 				Document doc = new Document(Integer.parseInt(parts[0]), parts[1], parts[2],
 						Double.parseDouble(parts[3]));
 				inventory.add(doc);
 				line = reader.readLine();
 			}
-
+			
+			
 			for (int i = 0; i < 3; i++) {
 				Random rand = new Random();
-				ArrayList<Document> temp = inventory.getList();
+				ArrayList<Document> temp = new ArrayList();
+				temp.add(inventory.getItem(i));
 				int randomIndex = rand.nextInt(temp.size());
 				Promotion p = new Promotion(temp.get(randomIndex), (temp.get(randomIndex).getPrice()) * 0.75);
 				temp.remove(randomIndex);
@@ -656,8 +652,8 @@ public class mainFile {
 	public static void main(String args[]) throws IOException {
 
 		startup();
-		System.out.println(
-				"\n\n========================= Welcome to Unlimited Publications Agency =========================\n\n");
+		System.out
+				.println("\n\n========================= Welcome to Unlimited Publications Agency =========================\n\n");
 		login();
 	}// main function
 
