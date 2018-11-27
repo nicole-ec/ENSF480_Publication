@@ -56,6 +56,7 @@ public class Operator extends Staff{
 	
 	public Inventory removeDoc(int index, int isbn, Inventory inventory) throws IOException {
 		inventory.getList().remove(index);
+		removeDocfromFile(isbn);
 		return inventory;
 	}
 	

@@ -1,9 +1,0 @@
-123456789;Cinderella;Charles Perrault;22.50
-234567891;Snow White;Jacob Grimm;25.99
-345678912;Robin Hood;Howard Pyle;21.88
-456789123;Beauty and the Beast;Gabrielle-Suzanne de Villeneuve;27.44
-567891234;Sleeping Beauty;Charles Perrault;18.50
-678912345;Little Red Riding Hood;Charles Perrault;17.99
-789123456;Aladdin;Ritesh Shah;29.50
-891234567;Rapunzel;Jacob Grimm;23.55
-912345678;Peter Pan;James Matthew Barrie;24.22
