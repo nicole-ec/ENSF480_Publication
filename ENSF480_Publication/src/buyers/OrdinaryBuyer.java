@@ -49,6 +49,12 @@ public class OrdinaryBuyer extends Buyer{
 		BufferedReader reader = new BufferedReader(new FileReader("documents.txt"));
 		String line = reader.readLine();
 		while (line != null) {
+			
+			if (line.isEmpty()) {
+				line = reader.readLine();
+				continue;
+			}
+			
 			String[] parts = line.split(";");
 			if (title.equalsIgnoreCase(parts[1])) {
 				Document doc = new Document(Integer.parseInt(parts[0]), parts[1], parts[2], Double.parseDouble(parts[3]));

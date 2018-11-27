@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 public class mainFile {
 
 	private static Scanner scan = new Scanner(System.in);
@@ -152,6 +150,10 @@ public class mainFile {
 					System.out.println("Please enter a valid price:");
 				}
 				price = scan.nextDouble();
+				if(price <= 0) {
+					System.out.println("Invalid price!!\n");
+					continue;
+				}
 				d = new Document(isbn, title, author, price);
 				((Operator) staff).addDoc(d);
 				System.out.println("Document added successfully!");
